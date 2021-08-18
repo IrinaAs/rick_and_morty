@@ -1,23 +1,21 @@
 //Screen detail character
 const DETAIL_INFO_TITLE_CHARACTER = 'Детальная информация о персонаже';
-const TITLE_EPISODE_BUTTON = 'Информация о сериях';
+const TITLE_EPISODE_BUTTON = 'Информация о эпизоде';
 const TITLE_LOCATION_BUTTON = 'Информация о локациях';
 
 //Screan episode
-const LIST_EPISODE_TITLE = 'Список серий';
+const LIST_EPISODE_TITLE = 'Список эпизодов';
 
 // Screen detail episode
 const DETAIL_INFO_TITLE_EPISODE = 'Детальная информация о эпизоде';
-const TITLE_CHARACTERS_WITH_EPISODE_BUTTON =
-    'Посмотреть список персонажей, связанных с этой серией';
+const TITLE_LIST_CHARACTERS_WITH_EPISODE_BUTTON =
+    'Посмотреть список персонажей';
 
 //Screen locations
 const LIST_LOCATION_TITLE = 'Cписок локаций';
 
 //Screen detail location
 const DETAIL_INFO_TITLE_LOCATION = 'Детальная информация о локации';
-const TITLE_CHARACTERS_WITH_LOCATION_BUTTON =
-    'Посмотреть список персонажей, связанных с этой локацией';
 
 //Errors
 const ERROR_TEXT_FULL =

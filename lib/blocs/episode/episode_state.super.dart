@@ -13,15 +13,8 @@ abstract class EpisodeState extends Equatable {
 
   factory EpisodeState.loading() = Loading.create;
 
-  factory EpisodeState.loaded(
-      {@required Info info,
-      @required List<EpisodeResult> result,
-      @required EasyRefreshController refreshController}) = Loaded.create;
-
-  factory EpisodeState.update(
-      {@required Info info,
-      @required List<EpisodeResult> result,
-      @required EasyRefreshController refreshController}) = Update.create;
+  factory EpisodeState.update({@required List<EpisodeResult> result}) =
+      Update.create;
 
   factory EpisodeState.error({@required String error}) = Error.create;
 
@@ -31,14 +24,10 @@ abstract class EpisodeState extends Equatable {
   /// Its prototype depends on the _EpisodeState [_type]s defined.
   R when<R extends Object>(
       {@required R Function() loading,
-      @required R Function(Loaded) loaded,
       @required R Function(Update) update,
       @required R Function(Error) error}) {
     assert(() {
-      if (loading == null ||
-          loaded == null ||
-          update == null ||
-          error == null) {
+      if (loading == null || update == null || error == null) {
         throw 'check for all possible cases';
       }
       return true;
@@ -46,8 +35,6 @@ abstract class EpisodeState extends Equatable {
     switch (this._type) {
       case _EpisodeState.Loading:
         return loading();
-      case _EpisodeState.Loaded:
-        return loaded(this as Loaded);
       case _EpisodeState.Update:
         return update(this as Update);
       case _EpisodeState.Error:
@@ -62,7 +49,6 @@ abstract class EpisodeState extends Equatable {
   /// for fallback behavior.
   R whenOrElse<R extends Object>(
       {R Function() loading,
-      R Function(Loaded) loaded,
       R Function(Update) update,
       R Function(Error) error,
       @required R Function(EpisodeState) orElse}) {
@@ -76,9 +62,6 @@ abstract class EpisodeState extends Equatable {
       case _EpisodeState.Loading:
         if (loading == null) break;
         return loading();
-      case _EpisodeState.Loaded:
-        if (loaded == null) break;
-        return loaded(this as Loaded);
       case _EpisodeState.Update:
         if (update == null) break;
         return update(this as Update);
@@ -93,14 +76,10 @@ abstract class EpisodeState extends Equatable {
   /// but non-exhaustive.
   void whenPartial(
       {void Function() loading,
-      void Function(Loaded) loaded,
       void Function(Update) update,
       void Function(Error) error}) {
     assert(() {
-      if (loading == null &&
-          loaded == null &&
-          update == null &&
-          error == null) {
+      if (loading == null && update == null && error == null) {
         throw 'provide at least one branch';
       }
       return true;
@@ -109,9 +88,6 @@ abstract class EpisodeState extends Equatable {
       case _EpisodeState.Loading:
         if (loading == null) break;
         return loading();
-      case _EpisodeState.Loaded:
-        if (loaded == null) break;
-        return loaded(this as Loaded);
       case _EpisodeState.Update:
         if (update == null) break;
         return update(this as Update);
@@ -141,131 +117,34 @@ class _LoadingImpl extends Loading {
 }
 
 @immutable
-abstract class Loaded extends EpisodeState {
-  const Loaded(
-      {@required this.info,
-      @required this.result,
-      @required this.refreshController})
-      : super(_EpisodeState.Loaded);
-
-  factory Loaded.create(
-      {@required Info info,
-      @required List<EpisodeResult> result,
-      @required EasyRefreshController refreshController}) = _LoadedImpl;
-
-  final Info info;
-
-  final List<EpisodeResult> result;
-
-  final EasyRefreshController refreshController;
-
-  /// Creates a copy of this Loaded but with the given fields
-  /// replaced with the new values.
-  Loaded copyWith(
-      {Info info,
-      List<EpisodeResult> result,
-      EasyRefreshController refreshController});
-}
-
-@immutable
-class _LoadedImpl extends Loaded {
-  const _LoadedImpl(
-      {@required this.info,
-      @required this.result,
-      @required this.refreshController})
-      : super(info: info, result: result, refreshController: refreshController);
-
-  @override
-  final Info info;
-
-  @override
-  final List<EpisodeResult> result;
-
-  @override
-  final EasyRefreshController refreshController;
-
-  @override
-  _LoadedImpl copyWith(
-          {Object info = superEnum,
-          Object result = superEnum,
-          Object refreshController = superEnum}) =>
-      _LoadedImpl(
-        info: info == superEnum ? this.info : info as Info,
-        result:
-            result == superEnum ? this.result : result as List<EpisodeResult>,
-        refreshController: refreshController == superEnum
-            ? this.refreshController
-            : refreshController as EasyRefreshController,
-      );
-  @override
-  String toString() =>
-      'Loaded(info: ${this.info}, result: ${this.result}, refreshController: ${this.refreshController})';
-  @override
-  List<Object> get props => [info, result, refreshController];
-}
-
-@immutable
 abstract class Update extends EpisodeState {
-  const Update(
-      {@required this.info,
-      @required this.result,
-      @required this.refreshController})
-      : super(_EpisodeState.Update);
+  const Update({@required this.result}) : super(_EpisodeState.Update);
 
-  factory Update.create(
-      {@required Info info,
-      @required List<EpisodeResult> result,
-      @required EasyRefreshController refreshController}) = _UpdateImpl;
-
-  final Info info;
+  factory Update.create({@required List<EpisodeResult> result}) = _UpdateImpl;
 
   final List<EpisodeResult> result;
-
-  final EasyRefreshController refreshController;
 
   /// Creates a copy of this Update but with the given fields
   /// replaced with the new values.
-  Update copyWith(
-      {Info info,
-      List<EpisodeResult> result,
-      EasyRefreshController refreshController});
+  Update copyWith({List<EpisodeResult> result});
 }
 
 @immutable
 class _UpdateImpl extends Update {
-  const _UpdateImpl(
-      {@required this.info,
-      @required this.result,
-      @required this.refreshController})
-      : super(info: info, result: result, refreshController: refreshController);
-
-  @override
-  final Info info;
+  const _UpdateImpl({@required this.result}) : super(result: result);
 
   @override
   final List<EpisodeResult> result;
 
   @override
-  final EasyRefreshController refreshController;
-
-  @override
-  _UpdateImpl copyWith(
-          {Object info = superEnum,
-          Object result = superEnum,
-          Object refreshController = superEnum}) =>
-      _UpdateImpl(
-        info: info == superEnum ? this.info : info as Info,
+  _UpdateImpl copyWith({Object result = superEnum}) => _UpdateImpl(
         result:
             result == superEnum ? this.result : result as List<EpisodeResult>,
-        refreshController: refreshController == superEnum
-            ? this.refreshController
-            : refreshController as EasyRefreshController,
       );
   @override
-  String toString() =>
-      'Update(info: ${this.info}, result: ${this.result}, refreshController: ${this.refreshController})';
+  String toString() => 'Update(result: ${this.result})';
   @override
-  List<Object> get props => [info, result, refreshController];
+  List<Object> get props => [result];
 }
 
 @immutable

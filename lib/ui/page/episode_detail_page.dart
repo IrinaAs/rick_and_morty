@@ -78,7 +78,7 @@ class _EpisodeDetailPageState extends State<EpisodeDetailPage> {
                   width: BIG_BUTTON_WIDTH,
                   padding: EdgeInsets.only(bottom: 30, left: 40, right: 50),
                   child: Button(
-                    textButton: TITLE_CHARACTERS_WITH_EPISODE_BUTTON,
+                    textButton: TITLE_LIST_CHARACTERS_WITH_EPISODE_BUTTON,
                     onClickHandler: _getBloc.onCharactersWithEpisodeTapped,
                     dinamSizeFont: false,
                   ),

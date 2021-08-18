@@ -5,12 +5,10 @@ import 'package:rick_and_morty_app/data/repository/character_repository.dart';
 import 'package:rick_and_morty_app/data/repository/episode_repository.dart';
 import 'package:rick_and_morty_app/data/repository/local_repository.dart';
 import 'package:rick_and_morty_app/ui/page/characters_page.dart';
-import 'package:rick_and_morty_app/ui/page/locations_page.dart';
 import 'blocs/character/character_bloc.dart';
 import 'blocs/character_detail/bloc.dart';
 import 'blocs/episode/episode_bloc.dart';
 import 'blocs/episode_detail.dart/episode_detail_bloc.dart';
-import 'blocs/location/location_bloc.dart';
 import 'blocs/location_detail/location_detail_bloc.dart';
 import 'data/repository/location_repository.dart';
 import 'navigation/core/navigation_controller.dart';
@@ -71,12 +69,6 @@ class Application extends StatelessWidget {
                     EpisodeRepositoryImpl.instance(),
                     CharacterRepositoryImpl.instance()),
                 child: EpisodeDetailPage()),
-        LocationsPage.routeName: (context) => BlocProvider<LocationBloc>(
-            create: (ctx) => LocationBloc(
-                _navigationController,
-                LocationRepositoryImpl.instance(),
-                LocalRepositoryImpl.instance()),
-            child: LocationsPage()),
         LocationDetailPage.routeName: (context) =>
             BlocProvider<LocationDetailBloc>(
                 create: (ctx) => LocationDetailBloc(

@@ -3,13 +3,13 @@ import 'package:rick_and_morty_app/ui/widgets/text.dart';
 
 const ITEM_EXTENT_HEIGHT = 112.0;
 
-class ItemSliverfixExList extends StatelessWidget {
+class ItemList extends StatelessWidget {
   final String text1;
   // ignore: non_constant_identifier_names
   final String text2;
   final Function() onClickHandler;
 
-  const ItemSliverfixExList({
+  const ItemList({
     // ignore: non_constant_identifier_names
     @required this.text1,
     @required this.text2,

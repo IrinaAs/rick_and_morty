@@ -15,10 +15,6 @@ abstract class EpisodeEvent extends Equatable {
 
   factory EpisodeEvent.itemClicked({@required int index}) = ItemClicked.create;
 
-  factory EpisodeEvent.pagination() = Pagination.create;
-
-  factory EpisodeEvent.refresh() = Refresh.create;
-
   factory EpisodeEvent.repeatClicked() = RepeatClicked.create;
 
   final _EpisodeEvent _type;
@@ -28,15 +24,9 @@ abstract class EpisodeEvent extends Equatable {
   R when<R extends Object>(
       {@required R Function() start,
       @required R Function(ItemClicked) itemClicked,
-      @required R Function() pagination,
-      @required R Function() refresh,
       @required R Function() repeatClicked}) {
     assert(() {
-      if (start == null ||
-          itemClicked == null ||
-          pagination == null ||
-          refresh == null ||
-          repeatClicked == null) {
+      if (start == null || itemClicked == null || repeatClicked == null) {
         throw 'check for all possible cases';
       }
       return true;
@@ -46,10 +36,6 @@ abstract class EpisodeEvent extends Equatable {
         return start();
       case _EpisodeEvent.ItemClicked:
         return itemClicked(this as ItemClicked);
-      case _EpisodeEvent.Pagination:
-        return pagination();
-      case _EpisodeEvent.Refresh:
-        return refresh();
       case _EpisodeEvent.RepeatClicked:
         return repeatClicked();
     }
@@ -63,8 +49,6 @@ abstract class EpisodeEvent extends Equatable {
   R whenOrElse<R extends Object>(
       {R Function() start,
       R Function(ItemClicked) itemClicked,
-      R Function() pagination,
-      R Function() refresh,
       R Function() repeatClicked,
       @required R Function(EpisodeEvent) orElse}) {
     assert(() {
@@ -80,12 +64,6 @@ abstract class EpisodeEvent extends Equatable {
       case _EpisodeEvent.ItemClicked:
         if (itemClicked == null) break;
         return itemClicked(this as ItemClicked);
-      case _EpisodeEvent.Pagination:
-        if (pagination == null) break;
-        return pagination();
-      case _EpisodeEvent.Refresh:
-        if (refresh == null) break;
-        return refresh();
       case _EpisodeEvent.RepeatClicked:
         if (repeatClicked == null) break;
         return repeatClicked();
@@ -98,15 +76,9 @@ abstract class EpisodeEvent extends Equatable {
   void whenPartial(
       {void Function() start,
       void Function(ItemClicked) itemClicked,
-      void Function() pagination,
-      void Function() refresh,
       void Function() repeatClicked}) {
     assert(() {
-      if (start == null &&
-          itemClicked == null &&
-          pagination == null &&
-          refresh == null &&
-          repeatClicked == null) {
+      if (start == null && itemClicked == null && repeatClicked == null) {
         throw 'provide at least one branch';
       }
       return true;
@@ -118,12 +90,6 @@ abstract class EpisodeEvent extends Equatable {
       case _EpisodeEvent.ItemClicked:
         if (itemClicked == null) break;
         return itemClicked(this as ItemClicked);
-      case _EpisodeEvent.Pagination:
-        if (pagination == null) break;
-        return pagination();
-      case _EpisodeEvent.Refresh:
-        if (refresh == null) break;
-        return refresh();
       case _EpisodeEvent.RepeatClicked:
         if (repeatClicked == null) break;
         return repeatClicked();
@@ -177,36 +143,6 @@ class _ItemClickedImpl extends ItemClicked {
   String toString() => 'ItemClicked(index: ${this.index})';
   @override
   List<Object> get props => [index];
-}
-
-@immutable
-abstract class Pagination extends EpisodeEvent {
-  const Pagination() : super(_EpisodeEvent.Pagination);
-
-  factory Pagination.create() = _PaginationImpl;
-}
-
-@immutable
-class _PaginationImpl extends Pagination {
-  const _PaginationImpl() : super();
-
-  @override
-  String toString() => 'Pagination()';
-}
-
-@immutable
-abstract class Refresh extends EpisodeEvent {
-  const Refresh() : super(_EpisodeEvent.Refresh);
-
-  factory Refresh.create() = _RefreshImpl;
-}
-
-@immutable
-class _RefreshImpl extends Refresh {
-  const _RefreshImpl() : super();
-
-  @override
-  String toString() => 'Refresh()';
 }
 
 @immutable

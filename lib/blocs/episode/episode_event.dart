@@ -8,9 +8,5 @@ enum _EpisodeEvent {
   @Data(fields: [DataField<int>('index')])
   ItemClicked,
   @object
-  Pagination,
-  @object
-  Refresh,
-  @object
   RepeatClicked,
 }
